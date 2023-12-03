@@ -1,0 +1,15 @@
+C:\Users\66996\OneDrive\Desktop\RiderProjects\Advent2023\Day02\bin\Debug\net7.0\Day02.exe
+C:\Users\66996\OneDrive\Desktop\RiderProjects\Advent2023\Day02\bin\Debug\net7.0\Day02.deps.json
+C:\Users\66996\OneDrive\Desktop\RiderProjects\Advent2023\Day02\bin\Debug\net7.0\Day02.runtimeconfig.json
+C:\Users\66996\OneDrive\Desktop\RiderProjects\Advent2023\Day02\bin\Debug\net7.0\Day02.dll
+C:\Users\66996\OneDrive\Desktop\RiderProjects\Advent2023\Day02\bin\Debug\net7.0\Day02.pdb
+C:\Users\66996\OneDrive\Desktop\RiderProjects\Advent2023\Day02\obj\Debug\net7.0\Day02.csproj.AssemblyReference.cache
+C:\Users\66996\OneDrive\Desktop\RiderProjects\Advent2023\Day02\obj\Debug\net7.0\Day02.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\66996\OneDrive\Desktop\RiderProjects\Advent2023\Day02\obj\Debug\net7.0\Day02.AssemblyInfoInputs.cache
+C:\Users\66996\OneDrive\Desktop\RiderProjects\Advent2023\Day02\obj\Debug\net7.0\Day02.AssemblyInfo.cs
+C:\Users\66996\OneDrive\Desktop\RiderProjects\Advent2023\Day02\obj\Debug\net7.0\Day02.csproj.CoreCompileInputs.cache
+C:\Users\66996\OneDrive\Desktop\RiderProjects\Advent2023\Day02\obj\Debug\net7.0\Day02.dll
+C:\Users\66996\OneDrive\Desktop\RiderProjects\Advent2023\Day02\obj\Debug\net7.0\refint\Day02.dll
+C:\Users\66996\OneDrive\Desktop\RiderProjects\Advent2023\Day02\obj\Debug\net7.0\Day02.pdb
+C:\Users\66996\OneDrive\Desktop\RiderProjects\Advent2023\Day02\obj\Debug\net7.0\Day02.genruntimeconfig.cache
+C:\Users\66996\OneDrive\Desktop\RiderProjects\Advent2023\Day02\obj\Debug\net7.0\ref\Day02.dll
