@@ -38,24 +38,35 @@ for (var i = 0; i < input.Length; i++)
     if(checkingHeightExt) spaceExtensionHeightIndexes.Add(i);
 }
 
+int expansionRateRaw = 1;
+int expansionRate = expansionRateRaw - 1;
+
 var spaceL = space.ToList();
 int index = 0;
-spaceExtensionWidthIndexes.ForEach(i =>
-{
-    spaceL.Insert(i + index++, space[i]);
-});
-index = 0;
-spaceExtensionHeightIndexes.ForEach(i =>
-{
-    for (var j = 0; j < space[0].Length + spaceExtensionWidthIndexes.Count; j++)
-    {
-        var temp = spaceL[j].ToList();
-        temp.Insert(i + index, ".");
-        spaceL[j] = temp.ToArray();
-    }
-
-    index++;
-});
+// spaceExtensionWidthIndexes.ForEach(i =>
+// {
+//     for (int j = 0; j < expansionRate; j++)
+//     {
+//         spaceL.Insert(i + index++, space[i]);
+//     }
+//     
+// });
+// index = 0;
+// spaceExtensionHeightIndexes.ForEach(i =>
+// {
+//     for (int k = 0; k < expansionRate; k++)
+//     {
+//         for (var j = 0; j < space[0].Length + (spaceExtensionWidthIndexes.Count * expansionRate); j++)
+//         {
+//             var temp = spaceL[j].ToList();
+//             temp.Insert(i + (index * expansionRate), ".");
+//             spaceL[j] = temp.ToArray();
+//         }
+//     }
+//     
+//
+//     index++;
+// });
 
 
 index = 1;
@@ -69,16 +80,11 @@ for (var i = 0; i < spaceL.Count; i++)
             spaceL[i][j] = (index++).ToString();
             galaxies.Add(spaceL[i][j], (i,j));
         }
-        
-        if (spaceL[i][j] is "3" or "6")
-        {
-            Console.WriteLine((i,j));
-        }
     }
 }
 
 List<(string, string)> doneChecks = new List<(string,string)>();
-int sumOfGalaxyShortestDistances = 0;
+double sumOfGalaxyShortestDistances = 0;
 foreach (var (key, value) in galaxies)
 {
     foreach (var (key2, value2) in galaxies)
@@ -87,8 +93,28 @@ foreach (var (key, value) in galaxies)
         if (doneChecks.Contains((key,key2)) || doneChecks.Contains((key2, key))) continue;
         
         int dist = Math.Abs(value2.Item2 - value.Item2) + Math.Abs(value2.Item1 - value.Item1);
-        Console.WriteLine($"{key} - {key2} | dist = " + dist);
-
+        
+        foreach (var spaceExtensionWidthIndex in spaceExtensionWidthIndexes)
+        {
+            if ((spaceExtensionWidthIndex > value.Item1 && spaceExtensionWidthIndex < value2.Item1) ||
+                (spaceExtensionWidthIndex < value.Item1 && spaceExtensionWidthIndex > value2.Item1))
+            {
+                // Console.WriteLine(value + " ve " + value2 + $" icerisinde {spaceExtensionWidthIndex}. row indexinde genleşme var.");
+                dist += expansionRate;
+            }
+        }
+        foreach (var spaceExtensionHeightIndex in spaceExtensionHeightIndexes)
+        {
+            if ((spaceExtensionHeightIndex > value.Item2 && spaceExtensionHeightIndex < value2.Item2) ||
+                (spaceExtensionHeightIndex < value.Item2 && spaceExtensionHeightIndex > value2.Item2))
+            {
+                // Console.WriteLine(value + " ve " + value2 + $" icerisinde {spaceExtensionHeightIndex}. height indexinde genleşme var.");
+                dist += expansionRate;
+            }
+        }
+        
+        // Console.WriteLine($"{key} - {key2} | dist = " + dist);
+        Console.WriteLine(key);
         sumOfGalaxyShortestDistances += dist;
         doneChecks.Add((key ,key2));
     }    
