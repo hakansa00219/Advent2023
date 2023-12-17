@@ -11,13 +11,23 @@ var damagedRecords = input.Select(s => s.Split(' ')[1])
     .Select(s => s.Split(' '))
     .Select(s => Array.ConvertAll(s, int.Parse)).ToArray();
 
-var springs = input.Select(s => s.Split(' ')[0]).ToArray();
+var damagedRecords2 = input.Select(s => s.Split(' ')[1])
+    .Select(s => s + ',' + s)
+    .Select(s => s.Replace(',', ' '))
+    .Select(s => s.Split(' '))
+    .Select(s => Array.ConvertAll(s, int.Parse)).ToArray();
 
-var springsSumArrangements = 0;
+var springs = input.Select(s => s.Split(' ')[0])
+    .ToArray();
+var springs2 = input.Select(s => s.Split(' ')[0])
+    .Select(s => s + '?' + s).ToArray();
+
+double springsSumArrangements = 0;
 
 //foreach spring
 for (int i = 0; i < springs.Length; i++)
 {
+    //--------------S1---------------
     List<int> unknownIndexes = new List<int>();
     for (var j = 0; j < springs[i].Length; j++)
     {
@@ -30,9 +40,9 @@ for (int i = 0; i < springs.Length; i++)
     var combinationLength = damagedCount - hashCount;
 
     bool combinationResult = true;
-    int arrangements = 0;
+    double arrangements = 0;
     
-    if (combinationLength == 0 && CheckArrangements(i, default, false ))
+    if (combinationLength == 0 && CheckArrangements(i, default,springs,damagedRecords, false ))
     {
         arrangements++;
         Console.WriteLine(springs[i] + " spring has " + arrangements + " arrangements.");
@@ -46,25 +56,62 @@ for (int i = 0; i < springs.Length; i++)
 
     foreach (var combination in combinations)
     {
-        if (CheckArrangements(i, combination, true))
+        if (CheckArrangements(i, combination, springs,damagedRecords,true))
         {
             arrangements++;
         }
     }
+    //--------------END---------------
+    //--------------S2---------------
+    List<int> unknownIndexes2 = new List<int>();
+    for (var j = 0; j < springs2[i].Length; j++)
+    {
+        if(springs2[i][j] is '?') unknownIndexes2.Add(j);
+    }
+    
+    var hashCount2 = springs2[i].Count(c => c is '#');
+    var damagedCount2 = damagedRecords2[i].Sum();
 
-    Console.WriteLine(springs[i] + " spring has " + arrangements + " arrangements.");
-    springsSumArrangements += arrangements;
+    var combinationLength2 = damagedCount2 - hashCount2;
+
+    bool combinationResult2 = true;
+    double arrangements2 = 0;
+    
+    if (combinationLength2 == 0 && CheckArrangements(i, default,springs2,damagedRecords2, false ))
+    {
+        arrangements2++;
+        Console.WriteLine(springs2[i] + " spring has " + arrangements2 + " arrangements.");
+        springsSumArrangements += arrangements2;
+        continue;
+    }
+
+    var combinations2 = Utils.GetKCombs<int>(unknownIndexes2, combinationLength2).ToArray();
+
+
+
+    foreach (var combination2 in combinations2)
+    {
+        if (CheckArrangements(i, combination2,springs2,damagedRecords2, true))
+        {
+            arrangements2++;
+        }
+    }
+    //--------------END--------------
+
+    double solution = Math.Pow(arrangements2 / arrangements, 3) * arrangements2;
+    Console.WriteLine(i + "." + " spring has " + solution + " arrangements.");
+    springsSumArrangements += solution;
 }
 Console.WriteLine("Sum of all springs arrangements: " + springsSumArrangements);
 
 
 Console.ReadKey();
 
-bool CheckArrangements(int springIndex, IEnumerable<int> combination, bool isMultipleCombinations)
+bool CheckArrangements(int springIndex, IEnumerable<int> combination, string[] springss,int[][] damagedRecordss, bool isMultipleCombinations)
 {
     bool b;
     StringBuilder tempSpringSolution = new StringBuilder();
-    tempSpringSolution.Append(springs[springIndex]);
+    tempSpringSolution.Append(springss[springIndex]);
     for (int j = 0; j < tempSpringSolution.Length; j++)
     {
         if (isMultipleCombinations)
@@ -90,7 +137,7 @@ bool CheckArrangements(int springIndex, IEnumerable<int> combination, bool isMul
 
     for (int j = 0; j < hashCounts.Length; j++)
     {
-        if (hashCounts.Length != damagedRecords[springIndex].Length || hashCounts[j] != damagedRecords[springIndex][j])
+        if (hashCounts.Length != damagedRecordss[springIndex].Length || hashCounts[j] != damagedRecordss[springIndex][j])
         {
             b = false;
         }
