@@ -18,6 +18,7 @@ for (var i = 0; i < data[0].Count; i++)
 Queue<int> replacableIndexes = new Queue<int>();
 int dequeuedIndex = 0;
 int dataCount = reversedData.Count;
+//North
 for (var i = 0; i < dataCount; i++)
 {
     replacableIndexes.Clear();
@@ -46,8 +47,10 @@ for (var i = 0; i < dataCount; i++)
         {
             replacableIndexes.Clear();
         }
+        
     }
 }
+//----
 
 
 Console.WriteLine("Total load = " + totalLoad); 
